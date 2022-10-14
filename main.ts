@@ -1,12 +1,14 @@
+input.onPinPressed(TouchPin.P0, function () {
+    control.reset()
+})
 let heroe = game.createSprite(0, 2)
-let villano = game.createSprite(2, 4)
+let villano = game.createSprite(randint(1, 4), randint(0, 4))
+let villano2 = game.createSprite(randint(1, 4), randint(0, 4))
+let villano3 = game.createSprite(randint(1, 4), randint(0, 4))
+heroe.set(LedSpriteProperty.Brightness, 120)
 basic.forever(function () {
     while (input.buttonIsPressed(Button.AB)) {
         heroe.change(LedSpriteProperty.Y, 1)
-        basic.pause(100)
-    }
-    while (input.logoIsPressed()) {
-        heroe.change(LedSpriteProperty.Y, -1)
         basic.pause(100)
     }
     while (input.buttonIsPressed(Button.A)) {
@@ -17,9 +19,40 @@ basic.forever(function () {
         heroe.change(LedSpriteProperty.X, 1)
         basic.pause(100)
     }
-    if (heroe.isTouching(villano)) {
-        basic.showIcon(IconNames.Yes)
-        music.playMelody("C5 G B A F A C5 B ", 300)
-        game.gameOver()
+    while (input.logoIsPressed()) {
+        heroe.change(LedSpriteProperty.Y, -1)
+        basic.pause(100)
     }
+    if (heroe.isTouching(villano)) {
+        music.startMelody(music.builtInMelody(Melodies.Funk), MelodyOptions.OnceInBackground)
+        villano.delete()
+        for (let index = 0; index < 3; index++) {
+            basic.showIcon(IconNames.Yes)
+            basic.clearScreen()
+        }
+        game.addScore(1)
+    }
+    if (heroe.isTouching(villano)) {
+        music.startMelody(music.builtInMelody(Melodies.Funk), MelodyOptions.OnceInBackground)
+        villano2.delete()
+        for (let index = 0; index < 3; index++) {
+            basic.showIcon(IconNames.Yes)
+            basic.clearScreen()
+        }
+        game.addScore(2)
+    }
+    if (heroe.isTouching(villano)) {
+        music.startMelody(music.builtInMelody(Melodies.Funk), MelodyOptions.OnceInBackground)
+        villano3.delete()
+        for (let index = 0; index < 3; index++) {
+            basic.showIcon(IconNames.Yes)
+            basic.clearScreen()
+        }
+        game.addScore(3)
+    }
+})
+loops.everyInterval(3000, function () {
+    villano.change(LedSpriteProperty.X, 1)
+    villano2.change(LedSpriteProperty.X, 1)
+    villano3.change(LedSpriteProperty.X, 1)
 })
