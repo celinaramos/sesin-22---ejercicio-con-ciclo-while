@@ -23,7 +23,7 @@ basic.forever(function () {
         heroe.change(LedSpriteProperty.Y, -1)
         basic.pause(100)
     }
-    if (heroe.isTouching(villano)) {
+    if (heroe.isTouching(villano3)) {
         music.startMelody(music.builtInMelody(Melodies.Funk), MelodyOptions.OnceInBackground)
         villano.delete()
         for (let index = 0; index < 3; index++) {
@@ -32,7 +32,7 @@ basic.forever(function () {
         }
         game.addScore(1)
     }
-    if (heroe.isTouching(villano)) {
+    if (heroe.isTouching(villano2)) {
         music.startMelody(music.builtInMelody(Melodies.Funk), MelodyOptions.OnceInBackground)
         villano2.delete()
         for (let index = 0; index < 3; index++) {
@@ -41,7 +41,7 @@ basic.forever(function () {
         }
         game.addScore(2)
     }
-    if (heroe.isTouching(villano)) {
+    if (heroe.isTouching(villano3)) {
         music.startMelody(music.builtInMelody(Melodies.Funk), MelodyOptions.OnceInBackground)
         villano3.delete()
         for (let index = 0; index < 3; index++) {
@@ -50,9 +50,16 @@ basic.forever(function () {
         }
         game.addScore(3)
     }
+    if (game.score() == 3) {
+        basic.pause(100)
+        game.gameOver()
+    }
 })
 loops.everyInterval(3000, function () {
-    villano.change(LedSpriteProperty.X, 1)
-    villano2.change(LedSpriteProperty.X, 1)
-    villano3.change(LedSpriteProperty.X, 1)
+    villano.change(LedSpriteProperty.X, randint(1, 4))
+    villano2.change(LedSpriteProperty.X, randint(1, 4))
+    villano3.change(LedSpriteProperty.X, randint(1, 4))
+    villano.change(LedSpriteProperty.Y, randint(0, 4))
+    villano2.change(LedSpriteProperty.Y, randint(0, 4))
+    villano3.change(LedSpriteProperty.Y, randint(0, 4))
 })
